@@ -4,7 +4,7 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import signupUser from '../use_cases/signupUser';
 import loginUser from '../use_cases/loginUser';
 import CenteredContainer from '../view_components/CenteredContainer';
-
+import loginImg from "./img/loginImg.png"
 const handleSubmit = (event, { email, password, authFn, successCallback }) => {
   event.preventDefault();
   authFn({ email, password })
@@ -18,14 +18,12 @@ const SignupForm = ({ onUserChange }) => {
   return (
     <Form className="mb-5" onSubmit={f => handleSubmit(f, { email, password, authFn: signupUser, successCallback: onUserChange })}>
       <FormGroup>
-        <Label for="email">Email:</Label>
-        <Input id="email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <Input id="email" placeholder="Email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
       </FormGroup>
       <FormGroup>
-        <Label>Password:</Label>
-        <Input type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
+        <Input type="password" placeholder="Password"  name="password" value={password} onChange={e => setPassword(e.target.value)} />
       </FormGroup>
-      <Button color="primary">Sign Up</Button>
+      <Button color="primary">Ro'yhatda o'tish</Button>
     </Form>
   );
 }
@@ -37,14 +35,12 @@ const LoginForm = ({ onUserChange }) => {
   return (
     <Form className="mb-5" onSubmit={f => handleSubmit(f, { email, password, authFn: loginUser, successCallback: onUserChange })}>
       <FormGroup>
-        <Label for="email">Email:</Label>
-        <Input id="email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
+        <Input id="email" placeholder="Email" name="email" value={email} onChange={e => setEmail(e.target.value)} />
       </FormGroup>
       <FormGroup>
-        <Label>Password:</Label>
-        <Input type="password" name="password" value={password} onChange={e => setPassword(e.target.value)} />
+        <Input type="password" placeholder="Password"  name="password" value={password} onChange={e => setPassword(e.target.value)} />
       </FormGroup>
-      <Button color="primary">Login</Button>
+      <Button color="primary">Kirish</Button>
     </Form>
   );
 }
@@ -62,25 +58,36 @@ const LoginRoute = props => {
     return <Redirect to='/games' />
   } else if (isExistingUser) {
     return (
-      <CenteredContainer maxWidth={500} verticalCentered>
-        <h1>Login to Cahoots!</h1>
-        <LoginForm onUserChange={setUser} />
-        <div>
-          No account? <br />
-          <Button color="link" onClick={toggleForm}>Sign Up!</Button>
+      <div className='login-box'>
+        <div className='logo-box'>
+          <h1>edTeach</h1>
         </div>
-      </CenteredContainer>
-    );
-  } else {
-    return (
-      <CenteredContainer maxWidth={500} verticalCentered>
-        <h1>Signup for Cahoots!</h1>
+        <CenteredContainer maxWidth={400} verticalCentered>
+        <h1>Ro'yhatdan o'tish!</h1>
         <SignupForm onUserChange={setUser} />
         <div>
-          Have an account? <br />
-          <Button color="link" onClick={toggleForm}>Login</Button>
+          <p>Hisobingiz bormi?</p> 
+          <span color="link" className='span' onClick={toggleForm}>Login</span>
+        </div> 
+      </CenteredContainer>
+      </div>
+    );
+
+  } else {
+    return (
+      <div className='login-box'>
+        <div className='logo-box'>
+          <h1>edTeach</h1>
+        </div>
+        <CenteredContainer maxWidth={400} verticalCentered>
+        <h1>edTeach ga kiring!</h1>
+        <LoginForm onUserChange={setUser} />
+        <div>
+          <p>Hisobingiz yo'qmi?</p> 
+          <span color="link" className='span'  onClick={toggleForm}>Ro'yhatdan o'tish!</span>
         </div>
       </CenteredContainer>
+      </div>
     );
   }
 }
